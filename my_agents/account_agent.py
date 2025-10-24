@@ -1,6 +1,13 @@
 from agents import Agent, RunContextWrapper
 from models import UserAccountContext
-
+from tools import (
+    reset_user_password,
+    enable_two_factor_auth,
+    update_account_email,
+    deactivate_account,
+    export_account_data,
+    AgentToolUsageLoggingHooks,
+)
 
 # 계정 관리(Account Management) 담당 에이전트의 프롬프트를 동적으로 생성하는 함수
 # wrapper: 실행 컨텍스트 객체로, 내부에 UserAccountContext를 포함함
@@ -55,4 +62,12 @@ def dynamic_account_agent_instructions(
 account_agent = Agent(
     name="Account Management Agent",
     instructions=dynamic_account_agent_instructions,
+    tools=[
+        reset_user_password,
+        enable_two_factor_auth,
+        update_account_email,
+        deactivate_account,
+        export_account_data,
+    ],
+    hooks=AgentToolUsageLoggingHooks(),
 )

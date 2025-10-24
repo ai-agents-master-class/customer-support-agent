@@ -1,6 +1,12 @@
 from agents import Agent, RunContextWrapper
 from models import UserAccountContext
-
+from tools import (
+    lookup_billing_history,
+    process_refund_request,
+    update_payment_method,
+    apply_billing_credit,
+    AgentToolUsageLoggingHooks,
+)
 
 # 결제 및 청구 관련 문제를 처리하는 Billing Support 에이전트의 프롬프트를 동적으로 생성하는 함수
 # wrapper: 실행 컨텍스트 객체 (UserAccountContext 포함)
@@ -48,4 +54,11 @@ def dynamic_billing_agent_instructions(
 billing_agent = Agent(
     name="Billing Support Agent",
     instructions=dynamic_billing_agent_instructions,
+    tools=[
+        lookup_billing_history,
+        process_refund_request,
+        update_payment_method,
+        apply_billing_credit,
+    ],
+    hooks=AgentToolUsageLoggingHooks(),
 )

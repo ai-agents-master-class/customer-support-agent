@@ -1,5 +1,13 @@
 from agents import Agent, RunContextWrapper
 from models import UserAccountContext
+from tools import (
+    run_diagnostic_check,
+    provide_troubleshooting_steps,
+    escalate_to_engineering,
+    AgentToolUsageLoggingHooks,
+)
+from output_guardrails import technical_output_guardrail
+
 
 
 # 기술 지원(Technical Support) 담당 에이전트의 프롬프트를 동적으로 생성하는 함수
@@ -47,4 +55,13 @@ def dynamic_technical_agent_instructions_kr(
 technical_agent = Agent(
     name="Technical Support Agent",
     instructions=dynamic_technical_agent_instructions_kr,
+    tools=[
+        run_diagnostic_check,
+        provide_troubleshooting_steps,
+        escalate_to_engineering,
+    ],
+    hooks=AgentToolUsageLoggingHooks(),
+    output_guardrails=[
+        technical_output_guardrail,
+    ],
 )

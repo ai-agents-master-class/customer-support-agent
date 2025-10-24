@@ -1,5 +1,12 @@
 from agents import Agent, RunContextWrapper
 from models import UserAccountContext
+from tools import (
+    lookup_order_status,
+    initiate_return_process,
+    schedule_redelivery,
+    expedite_shipping,
+    AgentToolUsageLoggingHooks,
+)
 
 
 # 주문 관리(Order Management) 에이전트의 프롬프트를 동적으로 생성하는 함수
@@ -47,4 +54,11 @@ def dynamic_order_agent_instructions(
 order_agent = Agent(
     name="Order Management Agent",
     instructions=dynamic_order_agent_instructions,
+    tools=[
+        lookup_order_status,
+        initiate_return_process,
+        schedule_redelivery,
+        expedite_shipping,
+    ],
+    hooks=AgentToolUsageLoggingHooks(),
 )

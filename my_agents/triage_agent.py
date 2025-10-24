@@ -158,9 +158,9 @@ def make_handoff(agent):
 triage_agent = Agent(
     name="Triage Agent",
     instructions=dynamic_triage_agent_instructions,
-    input_guardrails=[
-        off_topic_guardrail,
-    ],
+    # input_guardrails=[
+    #     off_topic_guardrail,
+    # ],
     # tools=[
     #     technical_agent.as_tool(
     #         tool_name="Technical Help Tool",
